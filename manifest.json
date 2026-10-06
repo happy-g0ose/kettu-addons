@@ -1,11 +1,11 @@
 {
-  "name": "Kettu Summary Easing",
-  "description": "Sets a 380 ms minimum and ease-in/ease-out for React Native LayoutAnimation transitions. Only affects layout animations using this API, not every Discord animation.",
+  "name": "Smoother UI",
+  "description": "Смягчает анимации интерфейса: задаёт минимальную длительность и ease-in/ease-out для LayoutAnimation и не даёт Animated.timing заканчиваться слишком резко. Влияет только на анимации, которые Discord запускает через эти JS API.",
   "authors": [
     {
-      "name": "Custom"
+      "name": "custom"
     }
   ],
   "main": "index.js",
-  "hash": "596857a344579cd16a6278f6e7aa0bd7a5edba530d29c6486f3bd27c33d133d9"
+  "hash": "b3c56e50d108c3008d1428e334899befcb8299d288dd29f01cc30b63bfc15d6b"
 }
