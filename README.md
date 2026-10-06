@@ -4,7 +4,7 @@ Dark translucent (glassmorphism) theme and a limited UI-animation plugin for [Ke
 
 ## Files
 
-- `Nocturne-Glass.json` — Kettu `spec: 2` theme. Translucent semantic colors in `#RRGGBBAA` format plus a blurred chat wallpaper (`background.url` + `background.blur` + `background.alpha`).
+- `Nocturne-Glass.json` — Kettu `spec: 2` theme (v1.1.0). Translucent semantic colors in `#RRGGBBAA` format plus a blurred chat wallpaper (`background.url` + `background.blur` + `background.alpha`).
 - `manifest.json` + `index.js` — direct-install Kettu plugin (polymanifest format). `hash` is the SHA-256 of `index.js` and is required, otherwise Kettu will not download the script on first install.
 
 The plugin only tunes React Native `LayoutAnimation.configureNext` and `Animated.timing` configs: a 320 ms / 260 ms minimum duration and `easeInEaseOut` instead of `linear`. Keyboard animations are left untouched, configs are cloned (Discord presets are not mutated), and every patch is removed in `onUnload`.
@@ -23,10 +23,25 @@ For this repository:
 
 The repository must be public so Kettu can fetch the files without your GitHub sign-in. For the plugin, paste the folder URL with the trailing slash, not a URL to `manifest.json` or `index.js`.
 
+## Wallpaper
+
+```json
+"background": {
+  "url": "https://wide-w.com/wp-content/uploads/2019/09/1tele-fon-720x1080.jpg",
+  "blur": 14,
+  "alpha": 0.5
+}
+```
+
+- The image is drawn by `ImageBackground` behind the **chat screen only** (Kettu patches `Messages.tsx`). Other screens have no wallpaper, they just show the translucent colors over the app's black base.
+- `alpha` (0–1) is the wallpaper's own weight: the chat container then gets an overlay of `1 - alpha`. Lower it (e.g. `0.35`) for readable text and a dimmer image, raise it (e.g. `0.65`) for a brighter image.
+- `blur` is React Native `blurRadius` in pixels — it averages out the bright sky so text stays legible. Set `0` for a sharp image.
+- The image must stay reachable from the device. Toggle: **Settings → Themes → appearance → Chat Background → Show Background**.
+
 ## Scope
 
-- Translucent surfaces: yes.
-- Real blur: yes, but **only** for the wallpaper image in the chat area (React Native `ImageBackground` `blurRadius`). Panels, sheets and modals are **not** backdrop-blurred — they only receive translucent colors. `background.alpha` (0–1) is how visible the wallpaper is.
+- Translucent surfaces: yes — 50 of 75 semantic colors use `#RRGGBBAA`.
+- Real blur: yes, but **only** for the wallpaper image in the chat area (React Native `ImageBackground` `blurRadius`). Panels, sheets and modals are **not** backdrop-blurred — they only receive translucent colors, so they look like glass only where the wallpaper is behind them.
 - The plugin cannot change system/native animations, keyboard animations, navigation transitions, Reanimated animations or frame rate. It only affects animations that Discord starts through the two patched JS APIs.
 
 ## Target
