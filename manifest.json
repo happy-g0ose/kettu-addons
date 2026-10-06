@@ -1,0 +1,11 @@
+{
+  "name": "Kettu Summary Easing",
+  "description": "Sets a 380 ms minimum and ease-in/ease-out for React Native LayoutAnimation transitions. Only affects layout animations using this API, not every Discord animation.",
+  "authors": [
+    {
+      "name": "Custom"
+    }
+  ],
+  "main": "index.js",
+  "hash": "596857a344579cd16a6278f6e7aa0bd7a5edba530d29c6486f3bd27c33d133d9"
+}
