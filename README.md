@@ -4,7 +4,7 @@ Dark translucent (glassmorphism) theme and a limited UI-animation plugin for [Ke
 
 ## Files
 
-- `Nocturne-Glass.json` — Kettu `spec: 2` theme (v1.1.0). Translucent semantic colors in `#RRGGBBAA` format plus a blurred chat wallpaper (`background.url` + `background.blur` + `background.alpha`).
+- `Nocturne-Glass.json` — Kettu `spec: 2` theme (v1.2.0). Strongly translucent semantic colors in `#RRGGBBAA` format plus a blurred chat wallpaper (`background.url` + `background.blur` + `background.alpha`).
 - `manifest.json` + `index.js` — direct-install Kettu plugin (polymanifest format). `hash` is the SHA-256 of `index.js` and is required, otherwise Kettu will not download the script on first install.
 
 The plugin only tunes React Native `LayoutAnimation.configureNext` and `Animated.timing` configs: a 320 ms / 260 ms minimum duration and `easeInEaseOut` instead of `linear`. Keyboard animations are left untouched, configs are cloned (Discord presets are not mutated), and every patch is removed in `onUnload`.
@@ -28,14 +28,15 @@ The repository must be public so Kettu can fetch the files without your GitHub s
 ```json
 "background": {
   "url": "https://wide-w.com/wp-content/uploads/2019/09/1tele-fon-720x1080.jpg",
-  "blur": 14,
-  "alpha": 0.5
+  "blur": 12,
+  "alpha": 0.75
 }
 ```
 
 - The image is drawn by `ImageBackground` behind the **chat screen only** (Kettu patches `Messages.tsx`). Other screens have no wallpaper, they just show the translucent colors over the app's black base.
-- `alpha` (0–1) is the wallpaper's own weight: the chat container then gets an overlay of `1 - alpha`. Lower it (e.g. `0.35`) for readable text and a dimmer image, raise it (e.g. `0.65`) for a brighter image.
-- `blur` is React Native `blurRadius` in pixels — it averages out the bright sky so text stays legible. Set `0` for a sharp image.
+- `alpha` (0–1) is the wallpaper's own weight: the chat container then gets an overlay of `1 - alpha`. Current value `0.75` leaves only a 25% dark tint, so the picture is clearly visible; drop it to `0.5` if message text gets hard to read against the bright sky.
+- `blur` is React Native `blurRadius` in pixels. Current `12` softens the sunset while keeping the palm and the boat recognizable; `0` gives a sharp image.
+- Panel alpha (the last byte of each `#RRGGBBAA` value): main surfaces `99`/`94` (≈60%/58%), chat input `80` (50%), modal scrim `59` (35%), floating menus `C7` (78%). Lower the byte = more see-through. Menus were kept denser than the rest so their text stays readable over the wallpaper.
 - The image must stay reachable from the device. Toggle: **Settings → Themes → appearance → Chat Background → Show Background**.
 
 ## Scope
